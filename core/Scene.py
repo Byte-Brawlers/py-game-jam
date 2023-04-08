@@ -14,16 +14,16 @@ class Scene(object):
     def attach_gameobject(self, gameobject):
         self.gameobjects.append(gameobject)
         gameobject.scene = self
-        if "_on_attach" in dir(self): self._on_attach()
+        if "_on_attach" in dir(gameobject): gameobject._on_attach()
 
     def start(self):
         if "_on_start" in dir(self): self._on_start()
         for gameobject in self.gameobjects: gameobject.start()
         self.event_manager.start()
 
-    def update(self):
-        if "_on_update" in dir(self): self._on_update()
-        for gameobject in self.gameobjects: gameobject.update()
+    def update(self, delta_time):
+        if "_on_update" in dir(self): self._on_update(delta_time)
+        for gameobject in self.gameobjects: gameobject.update(delta_time)
 
     def fire_event(self, event):
         if "_on_event" in dir(self): self._on_event(event)
